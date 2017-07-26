@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/treyvis/FreeCodeCamp-Back-End-Image-Abstraction/issues"
   },
-  "homepage": "https://github.com/treyvis/FreeCodeCamp-Back-End-Image-Abstraction#readme"
+  "homepage": "https://github.com/treyvis/FreeCodeCamp-Back-End-Image-Abstraction#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
 }
