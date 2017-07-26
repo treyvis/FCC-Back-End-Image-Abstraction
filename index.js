@@ -10,10 +10,21 @@ app.get('/', (req, res) => {
 	res.send('You found it')
 })
 
-app.get('/search/:query', (req, searchRes) => {
-	request('https://pixabay.com/api/?key=' + key + '&q=yellow+flowers', (err, res, body) => {
-		console.log(JSON.parse(body).totalHits)
-		searchRes.send(''+JSON.parse(body).totalHits)
+app.get('/search/:query', (req, res) => {
+	let offset  = req.query.offset
+	if (!offset || offset > 300 || offset < 3) offset = 20
+	request('https://pixabay.com/api/?key=' + key + '&q=' + req.params.query + '&per_page=' + offset, (err, pixaResponse, body) => {
+		const searchResults = JSON.parse(body).hits
+		let resultsArray = [];
+		for (let hit in searchResults) {
+			const resultObject = {
+				"tags": searchResults[hit].tags,
+				"url": searchResults[hit].webformatURL,
+				"preview": searchResults[hit].previewURL
+			}
+			resultsArray.push(resultObject)
+		}
+		res.json(resultsArray)
 	})
 })
 
