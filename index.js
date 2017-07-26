@@ -3,9 +3,12 @@
 const express = require('express')
 const request = require('request')
 const app = express()
+const key = require('./config.json').key
 const port = process.env.PORT || 4040
 
-request('https://pixabay.com/api/?key=5984160-851323f1904b8ff9fb551e650&q=yellow+flowers&image_type=photo',
+console.log(key)
+
+request('https://pixabay.com/api/?key=' + key + '&q=yellow+flowers',
 	(err, res, body) => {
 		console.log(JSON.parse(body).totalHits)
 })
