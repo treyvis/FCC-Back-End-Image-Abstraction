@@ -36,8 +36,16 @@ app.get('/search/:query', (req, res) => {
 			}
 			db.collection('searches').insert(resultsObject, (err, doc) => {
 				if (err) throw err
-				console.log('Inserted search to database')
 			})
+		})
+	})
+})
+
+app.get('/recent', (req, res) => {
+	mongo.connect(mongoURI, (err, db) => {
+		if (err) throw err
+		db.collection('searches').find({},{"_id":false, "search":true}).sort({"_id":-1}).limit(10).toArray((err, docsArray) => {
+			res.send(docsArray)
 		})
 	})
 })
