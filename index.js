@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 app.get('/search/:query', (req, res) => {
 	const query = req.params.query
 	let offset  = req.query.offset
-	if (!offset || offset > 300 || offset < 3) offset = 20
+	if (!offset || offset > 300 || offset < 3) offset = 10
 	request('https://pixabay.com/api/?key=' + config.key + '&q=' + query + '&per_page=' + offset, (err, pixaResponse, body) => {
 		const searchResults = JSON.parse(body).hits
 		let resultsArray = [];
